@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.activity11.dao.CountryDAO;
@@ -25,10 +26,10 @@ public class CountryController {
     @Autowired
     private CountryDAO countryDAO;
 
-	@GetMapping(value ="", params = "name")
-    public ResponseEntity<List<Country>> getFilterByName(@PathVariable(value="id") String name){
+	@GetMapping(value ="", params = "nombre")
+    public ResponseEntity<List<Country>> getFilterByName(@RequestParam String nombre){
         try {
-            List<Country> countries = countryDAO.findByName(name);
+            List<Country> countries = countryDAO.findByName(nombre);
             return new ResponseEntity<>(countries, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
